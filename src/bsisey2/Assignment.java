@@ -180,15 +180,51 @@ public class Assignment {
 	}
 	
 	public static int getNumberOfRegistredUsers(int n) {
-		return 0;
+		List<Integer> registeredUsersList = null;
+		int registeredUsers = 0;
+		try {
+			Session currentSession = HibernateUtils.currentSession();
+			String query = "select count(users.userid) from Users users where users.registrationDate > sysdate - " + n ;
+			registeredUsersList = currentSession.createQuery(query).list();
+			registeredUsers = registeredUsersList.get(0);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			HibernateUtils.closeSession();
+		}
+		
+		return registeredUsers;
 	}
 	
 	public static List<Users> getUsers (){
-		return null ;
+		List<Users> usersList = null;
+		try {
+			Session currentSession = HibernateUtils.currentSession();
+			String query = "select users from Users users" ;
+			usersList = currentSession.createQuery(query).list();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			HibernateUtils.closeSession();
+		}
+		return usersList;
 	}
 
 	public static Users getUser (String userid) {
-		return null ;
+		List<Users> usersList = null;
+		Users user = null;
+		try {
+			Session currentSession = HibernateUtils.currentSession();
+			String query = "select users from Users users where users.userid = " + userid;
+			usersList = currentSession.createQuery(query).list();
+			user = usersList.get(0);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			HibernateUtils.closeSession();
+		}
+		
+		return user;
 	}
 
 	
@@ -208,23 +244,6 @@ public class Assignment {
 			HibernateUtils.closeSession();
 		}
 		return item;
-	}
-	
-	private static Users getUser(String userid) {
-		List<Users> usersList = null;
-		Users user = null;
-		try {
-			Session currentSession = HibernateUtils.currentSession();
-			String query = "select users from Users users where users.userid = " + userid;
-			usersList = currentSession.createQuery(query).list();
-			user = usersList.get(0);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			HibernateUtils.closeSession();
-		}
-		
-		return user;
 	}
 	
 	private static Timestamp getBirthDate(String day, String month, String year) {
