@@ -1,6 +1,7 @@
 package bsisey2;
 
-import antlr.collections.List;
+import Collections .*;
+import hibernate .*;
 
 public class Assignment {
 

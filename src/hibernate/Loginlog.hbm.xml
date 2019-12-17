@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 17, 2019 10:48:32 AM by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="hibernate.Loginlog" table="LOGINLOG" optimistic-lock="version">
+        <composite-id name="id" class="hibernate.LoginlogId">
+            <key-property name="userid" type="big_decimal">
+                <column name="USERID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="logintime" type="serializable">
+                <column name="LOGINTIME" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="users" class="hibernate.Users" update="false" insert="false" fetch="select">
+            <column name="USERID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
