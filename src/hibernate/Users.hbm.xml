@@ -6,7 +6,7 @@
     <class name="hibernate.Users" table="USERS" optimistic-lock="version">
         <id name="userid" type="big_decimal">
             <column name="USERID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="username" type="string">
             <column name="USERNAME" length="150" />
