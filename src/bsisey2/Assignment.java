@@ -168,8 +168,8 @@ public class Assignment {
 		try {
 			Session currentSession = HibernateUtils.currentSession();
 			Loginlog logItem = new Loginlog();
-			logItem.setUserid(userid);
-			logItem.setLogintime(getCurrentTimestamp());
+			LoginlogId logInId = new LoginlogId(userid, getCurrentTimestamp());
+			logItem.setId(logInId);
 			commitTransaction(currentSession, logItem);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -182,6 +182,8 @@ public class Assignment {
 	public static int getNumberOfRegistredUsers(int n) {
 		List<Integer> registeredUsersList = null;
 		int registeredUsers = 0;
+		long t1 = 134;
+		int t2 = (int) t1;
 		try {
 			Session currentSession = HibernateUtils.currentSession();
 			String query = "select count(users.userid) from Users users where users.registrationDate > sysdate - " + n ;
