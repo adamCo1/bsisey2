@@ -1,5 +1,6 @@
 package bsisey2;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -54,12 +55,12 @@ public class Assignment {
 			HibernateUtil.closeSession();
 		}
 		
-		return newUser.getUsetid();
+		return "" + newUser.getUserid();
 	}
 
 	public static List<Mediaitems> getTopNItems (int top_n){
 		
-		List<Mediaitems> finalList ;
+		List<Mediaitems> finalList = null ;
 		try {
 			Session currentSession = HibernateUtil.currentSession();
 			String query = "select mediaitems from Mediaitems mediaitems " +
@@ -81,7 +82,7 @@ public class Assignment {
 		if(!isExistUsername(username)) {
 			return negativeAnswer;
 		}
-		Users foundUser; 
+		Users foundUser = null; 
 		try {
 			Session currentSession = HibernateUtil.currentSession();
 			String query = "select users from Users users where username = " + username
@@ -94,7 +95,7 @@ public class Assignment {
 			HibernateUtil.closeSession();
 		}
 		
-		return foundUser.getUserid();
+		return "" + foundUser.getUserid();
 	}
 	
 	public static String validateAdministrator (String username, String password) {
@@ -103,7 +104,7 @@ public class Assignment {
 		if(!isExistUsername(username)) {
 			return negativeAnswer;
 		}
-		Administrators foundAdmin; 
+		Administrators foundAdmin = null ; 
 		try {
 			Session currentSession = HibernateUtil.currentSession();
 			String query = "select admins from Administrators admins where username = " + username
@@ -116,7 +117,7 @@ public class Assignment {
 			HibernateUtil.closeSession();
 		}
 		
-		return foundAdmin.getUserid();
+		return "" + foundAdmin.getAdminid();
 	}
 	
 	public static void insertToHistory (String userid, String mid) {
@@ -129,27 +130,28 @@ public class Assignment {
 		}
 		
 		try {
-			Session currentSession = HibernateUtils.currentSession();
+			Session currentSession = HibernateUtil.currentSession();
 			int uid = Integer.parseInt(userid);
-			int mid = Integer.parseInt(mid);
+			int mid_int = Integer.parseInt(mid);
 			Timestamp timeStamp = getCurrentTimestamp();
-			History history = new History(uid, mid, timeStamp);
-			
+			HistoryId historyId = new HistoryId(new BigDecimal(uid), new BigDecimal(mid_int), timeStamp);
+			History history = new History();
+			history.setId(historyId);			
 			commitTransaction(currentSession, history);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally{
-			HibernateUtils.closeSession();
+			HibernateUtil.closeSession();
 		}
 		
 		System.out.println(sucessfullEndMsg);
 	}
 	
 	public static List<?> getHistory (String userid){
-		List<?> historyItems ;
+		List<?> historyItems = null ;
 		
 		try {
-			Session currentSession = HibernateUtils.currentSession();
+			Session currentSession = HibernateUtil.currentSession();
 			String query = "select history.mediaitems.title , " +
 					"history.id.viewtime from History history " +
 					"where history.id.userid = " + userid + "orderby viewtime ASC";
@@ -157,7 +159,7 @@ public class Assignment {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			HibernateUtils.closeSession();
+			HibernateUtil.closeSession();
 		}
 		return historyItems ;
 	}
@@ -166,15 +168,15 @@ public class Assignment {
 		String sucessMsg = "The insertion to log table was successful <server time>" ;
 		
 		try {
-			Session currentSession = HibernateUtils.currentSession();
+			Session currentSession = HibernateUtil.currentSession();
 			Loginlog logItem = new Loginlog();
-			LoginlogId logInId = new LoginlogId(userid, getCurrentTimestamp());
+			LoginlogId logInId = new LoginlogId(new BigDecimal(userid), getCurrentTimestamp());
 			logItem.setId(logInId);
 			commitTransaction(currentSession, logItem);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			HibernateUtils.closeSession();
+			HibernateUtil.closeSession();
 		}
 		System.out.println(sucessMsg);
 	}
@@ -185,14 +187,14 @@ public class Assignment {
 		long t1 = 134;
 		int t2 = (int) t1;
 		try {
-			Session currentSession = HibernateUtils.currentSession();
+			Session currentSession = HibernateUtil.currentSession();
 			String query = "select count(users.userid) from Users users where users.registrationDate > sysdate - " + n ;
 			registeredUsersList = currentSession.createQuery(query).list();
 			registeredUsers = registeredUsersList.get(0);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			HibernateUtils.closeSession();
+			HibernateUtil.closeSession();
 		}
 		
 		return registeredUsers;
@@ -201,13 +203,13 @@ public class Assignment {
 	public static List<Users> getUsers (){
 		List<Users> usersList = null;
 		try {
-			Session currentSession = HibernateUtils.currentSession();
+			Session currentSession = HibernateUtil.currentSession();
 			String query = "select users from Users users" ;
 			usersList = currentSession.createQuery(query).list();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			HibernateUtils.closeSession();
+			HibernateUtil.closeSession();
 		}
 		return usersList;
 	}
@@ -216,14 +218,14 @@ public class Assignment {
 		List<Users> usersList = null;
 		Users user = null;
 		try {
-			Session currentSession = HibernateUtils.currentSession();
+			Session currentSession = HibernateUtil.currentSession();
 			String query = "select users from Users users where users.userid = " + userid;
 			usersList = currentSession.createQuery(query).list();
 			user = usersList.get(0);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			HibernateUtils.closeSession();
+			HibernateUtil.closeSession();
 		}
 		
 		return user;
@@ -231,19 +233,19 @@ public class Assignment {
 
 	
 	
-	private static Mediaitem getMediaItem(String mid) {
-		List<Mediaitem> itemList = null;
-		Mediaitem item = null;
+	private static Mediaitems getMediaItem(String mid) {
+		List<Mediaitems> itemList = null;
+		Mediaitems item = null;
 		
 		try {
-			Session currentSession = HibernateUtils.currentSession();
+			Session currentSession = HibernateUtil.currentSession();
 			String query = "select items from MediaItems items where items.mid = " + mid;
 			itemList = currentSession.createQuery(query).list();
 			item = itemList.get(0);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			HibernateUtils.closeSession();
+			HibernateUtil.closeSession();
 		}
 		return item;
 	}
