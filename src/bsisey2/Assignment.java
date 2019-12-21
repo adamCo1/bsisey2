@@ -6,7 +6,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.apache.xerces.impl.dv.xs.DayDV;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -18,7 +17,7 @@ public class Assignment {
 		boolean userExist = false;
 		try {
 			Session currentSession = HibernateUtil.currentSession();
-			String query = "select users from Users users where username = " + username ;
+			String query = "select users from Users users where username = '" + username +"'" ;
 			List<Users> usersList = currentSession.createQuery(query).list();
 			userExist = usersList.size() > 0 ;
 		}catch(Exception e) {
@@ -85,9 +84,12 @@ public class Assignment {
 		Users foundUser = null; 
 		try {
 			Session currentSession = HibernateUtil.currentSession();
-			String query = "select users from Users users where username = " + username
-							+" AND password = " + password ;
+			String query = "select users from Users users where username = '" + username +"'"
+							+" AND password = '" + password + "'";
 			List<Users> usersList = currentSession.createQuery(query).list();
+			if(usersList.size() == 0) {
+				return "" + negativeAnswer;
+			}
 			foundUser = usersList.get(0);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -107,9 +109,12 @@ public class Assignment {
 		Administrators foundAdmin = null ; 
 		try {
 			Session currentSession = HibernateUtil.currentSession();
-			String query = "select admins from Administrators admins where username = " + username
-							+" AND password = " + password ;
+			String query = "select admins from Administrators admins where username = '" + username +"'"
+							+" AND password = '" + password + "'" ;
 			List<Administrators> adminList = currentSession.createQuery(query).list();
+			if(adminList.size() == 0) {
+				return "" + negativeAnswer ;
+			}
 			foundAdmin = adminList.get(0);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -134,7 +139,7 @@ public class Assignment {
 			int uid = Integer.parseInt(userid);
 			int mid_int = Integer.parseInt(mid);
 			Timestamp timeStamp = getCurrentTimestamp();
-			HistoryId historyId = new HistoryId(new BigDecimal(uid), new BigDecimal(mid_int), timeStamp);
+			HistoryId historyId = new HistoryId(new Integer(uid), new Integer(mid_int), timeStamp);
 			History history = new History();
 			history.setId(historyId);			
 			commitTransaction(currentSession, history);
@@ -152,9 +157,9 @@ public class Assignment {
 		
 		try {
 			Session currentSession = HibernateUtil.currentSession();
-			String query = "select history.mediaitems.title , " +
+			String query = "select history.id.mid , " +
 					"history.id.viewtime from History history " +
-					"where history.id.userid = " + userid + "orderby viewtime ASC";
+					"where history.id.userid = '" + userid +"'" + " order by viewtime ASC";
 			historyItems = currentSession.createQuery(query).list();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -170,7 +175,7 @@ public class Assignment {
 		try {
 			Session currentSession = HibernateUtil.currentSession();
 			Loginlog logItem = new Loginlog();
-			LoginlogId logInId = new LoginlogId(new BigDecimal(userid), getCurrentTimestamp());
+			LoginlogId logInId = new LoginlogId(new Integer(userid), getCurrentTimestamp());
 			logItem.setId(logInId);
 			commitTransaction(currentSession, logItem);
 		}catch(Exception e) {
@@ -182,13 +187,11 @@ public class Assignment {
 	}
 	
 	public static int getNumberOfRegistredUsers(int n) {
-		List<Integer> registeredUsersList = null;
-		int registeredUsers = 0;
-		long t1 = 134;
-		int t2 = (int) t1;
+		List<Long> registeredUsersList = null;
+		long registeredUsers = 0;
 		try {
 			Session currentSession = HibernateUtil.currentSession();
-			String query = "select count(users.userid) from Users users where users.registrationDate > sysdate - " + n ;
+			String query = "select count(users.userid) from Users users where users.registrationDate > sysdate - '" + n +"'" ;
 			registeredUsersList = currentSession.createQuery(query).list();
 			registeredUsers = registeredUsersList.get(0);
 		}catch(Exception e) {
@@ -197,7 +200,7 @@ public class Assignment {
 			HibernateUtil.closeSession();
 		}
 		
-		return registeredUsers;
+		return (int)registeredUsers;
 	}
 	
 	public static List<Users> getUsers (){
@@ -239,7 +242,7 @@ public class Assignment {
 		
 		try {
 			Session currentSession = HibernateUtil.currentSession();
-			String query = "select items from MediaItems items where items.mid = " + mid;
+			String query = "select items from Mediaitems items where items.mid = '" + mid + "'";
 			itemList = currentSession.createQuery(query).list();
 			item = itemList.get(0);
 		}catch(Exception e) {

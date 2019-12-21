@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class Mediaitems implements java.io.Serializable {
 
-	private int mid;
+	private Integer mid;
 	private String title;
 	private Short prodYear;
 	private Short titleLength;
@@ -19,12 +19,12 @@ public class Mediaitems implements java.io.Serializable {
 	public Mediaitems() {
 	}
 
-	public Mediaitems(int mid, String title) {
+	public Mediaitems(Integer mid, String title) {
 		this.mid = mid;
 		this.title = title;
 	}
 
-	public Mediaitems(int mid, String title, Short prodYear, Short titleLength, Set similaritiesForMid1,
+	public Mediaitems(Integer mid, String title, Short prodYear, Short titleLength, Set similaritiesForMid1,
 			Set similaritiesForMid2) {
 		this.mid = mid;
 		this.title = title;
@@ -38,7 +38,7 @@ public class Mediaitems implements java.io.Serializable {
 		return this.mid;
 	}
 
-	public void setMid(int mid) {
+	public void setMid(Integer mid) {
 		this.mid = mid;
 	}
 

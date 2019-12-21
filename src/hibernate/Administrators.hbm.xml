@@ -4,7 +4,7 @@
 <!-- Generated Dec 17, 2019 10:48:32 AM by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping default-access="field">
  <class name="hibernate.Administrators" table="ADMINISTRATORS">
-  <id name="adminid" type="big_decimal">
+  <id name="adminid" type="int">
    <column name="ADMINID" precision="22" scale="0"/>
    <generator class="assigned"/>
   </id>

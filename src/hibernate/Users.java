@@ -3,6 +3,7 @@ package hibernate;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,8 +17,8 @@ public class Users implements java.io.Serializable {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private Serializable dateOfBirth;
-	private Serializable registrationDate;
+	private Timestamp dateOfBirth;
+	private Timestamp registrationDate;
 	private Set histories = new HashSet(0);
 	private Set loginlogs = new HashSet(0);
 
@@ -29,7 +30,7 @@ public class Users implements java.io.Serializable {
 	}
 
 	public Users(int userid, String username, String password, String firstName, String lastName,
-			Serializable dateOfBirth, Serializable registrationDate, Set histories, Set loginlogs) {
+			Timestamp dateOfBirth, Timestamp registrationDate, Set histories, Set loginlogs) {
 		this.userid = userid;
 		this.username = username;
 		this.password = password;
@@ -81,19 +82,19 @@ public class Users implements java.io.Serializable {
 		this.lastName = lastName;
 	}
 
-	public Serializable getDateOfBirth() {
+	public Timestamp getDateOfBirth() {
 		return this.dateOfBirth;
 	}
 
-	public void setDateOfBirth(Serializable dateOfBirth) {
+	public void setDateOfBirth(Timestamp dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Serializable getRegistrationDate() {
+	public Timestamp getRegistrationDate() {
 		return this.registrationDate;
 	}
 
-	public void setRegistrationDate(Serializable registrationDate) {
+	public void setRegistrationDate(Timestamp registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 

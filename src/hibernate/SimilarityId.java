@@ -6,13 +6,13 @@ package hibernate;
  */
 public class SimilarityId implements java.io.Serializable {
 
-	private int mid1;
-	private int mid2;
+	private Integer mid1;
+	private Integer mid2;
 
 	public SimilarityId() {
 	}
 
-	public SimilarityId(int mid1, int mid2) {
+	public SimilarityId(Integer mid1, Integer mid2) {
 		this.mid1 = mid1;
 		this.mid2 = mid2;
 	}
@@ -21,7 +21,7 @@ public class SimilarityId implements java.io.Serializable {
 		return this.mid1;
 	}
 
-	public void setMid1(int mid1) {
+	public void setMid1(Integer mid1) {
 		this.mid1 = mid1;
 	}
 
@@ -29,7 +29,7 @@ public class SimilarityId implements java.io.Serializable {
 		return this.mid2;
 	}
 
-	public void setMid2(int mid2) {
+	public void setMid2(Integer mid2) {
 		this.mid2 = mid2;
 	}
 
