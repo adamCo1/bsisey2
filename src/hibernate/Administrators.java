@@ -8,28 +8,28 @@ import java.math.BigDecimal;
  */
 public class Administrators implements java.io.Serializable {
 
-	private BigDecimal adminid;
+	private Integer adminid;
 	private String username;
 	private String password;
 
 	public Administrators() {
 	}
 
-	public Administrators(BigDecimal adminid) {
+	public Administrators(Integer adminid) {
 		this.adminid = adminid;
 	}
 
-	public Administrators(BigDecimal adminid, String username, String password) {
+	public Administrators(Integer adminid, String username, String password) {
 		this.adminid = adminid;
 		this.username = username;
 		this.password = password;
 	}
 
-	public BigDecimal getAdminid() {
+	public int getAdminid() {
 		return this.adminid;
 	}
 
-	public void setAdminid(BigDecimal adminid) {
+	public void setAdminid(Integer adminid) {
 		this.adminid = adminid;
 	}
 

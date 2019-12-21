@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Users implements java.io.Serializable {
 
-	private BigDecimal userid;
+	private int userid;
 	private String username;
 	private String password;
 	private String firstName;
@@ -24,11 +24,11 @@ public class Users implements java.io.Serializable {
 	public Users() {
 	}
 
-	public Users(BigDecimal userid) {
+	public Users(int userid) {
 		this.userid = userid;
 	}
 
-	public Users(BigDecimal userid, String username, String password, String firstName, String lastName,
+	public Users(int userid, String username, String password, String firstName, String lastName,
 			Serializable dateOfBirth, Serializable registrationDate, Set histories, Set loginlogs) {
 		this.userid = userid;
 		this.username = username;
@@ -41,11 +41,11 @@ public class Users implements java.io.Serializable {
 		this.loginlogs = loginlogs;
 	}
 
-	public BigDecimal getUserid() {
+	public int getUserid() {
 		return this.userid;
 	}
 
-	public void setUserid(BigDecimal userid) {
+	public void setUserid(int userid) {
 		this.userid = userid;
 	}
 

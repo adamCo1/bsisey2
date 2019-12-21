@@ -9,22 +9,22 @@ import java.math.BigDecimal;
  */
 public class LoginlogId implements java.io.Serializable {
 
-	private BigDecimal userid;
+	private Integer userid;
 	private Serializable logintime;
 
 	public LoginlogId() {
 	}
 
-	public LoginlogId(BigDecimal userid, Serializable logintime) {
+	public LoginlogId(Integer userid, Serializable logintime) {
 		this.userid = userid;
 		this.logintime = logintime;
 	}
 
-	public BigDecimal getUserid() {
+	public Integer getUserid() {
 		return this.userid;
 	}
 
-	public void setUserid(BigDecimal userid) {
+	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
 

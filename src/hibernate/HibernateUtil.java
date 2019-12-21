@@ -1,9 +1,7 @@
 package hibernate;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 

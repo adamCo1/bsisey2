@@ -4,7 +4,7 @@
 <!-- Generated Dec 17, 2019 10:48:32 AM by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="hibernate.Users" table="USERS" optimistic-lock="version">
-        <id name="userid" type="big_decimal">
+        <id name="userid" type="int">
             <column name="USERID" precision="22" scale="0" />
             <generator class="increment" />
         </id>

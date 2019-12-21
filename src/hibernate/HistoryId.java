@@ -9,32 +9,32 @@ import java.math.BigDecimal;
  */
 public class HistoryId implements java.io.Serializable {
 
-	private BigDecimal userid;
-	private BigDecimal mid;
+	private Integer userid;
+	private Integer mid;
 	private Serializable viewtime;
 
 	public HistoryId() {
 	}
 
-	public HistoryId(BigDecimal userid, BigDecimal mid, Serializable viewtime) {
+	public HistoryId(Integer userid, Integer mid, Serializable viewtime) {
 		this.userid = userid;
 		this.mid = mid;
 		this.viewtime = viewtime;
 	}
 
-	public BigDecimal getUserid() {
+	public Integer getUserid() {
 		return this.userid;
 	}
 
-	public void setUserid(BigDecimal userid) {
+	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
 
-	public BigDecimal getMid() {
+	public Integer getMid() {
 		return this.mid;
 	}
 
-	public void setMid(BigDecimal mid) {
+	public void setMid(Integer mid) {
 		this.mid = mid;
 	}
 
